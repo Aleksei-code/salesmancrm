@@ -163,7 +163,7 @@ WHERE
 	{$sqlname}file.identity = '$identity'
 ";
 
-$lines_per_page = $lines_per_page ?? 5; //Стоимость записей на страницу
+$lines_per_page = $lines_per_page ?? 50; //Стоимость записей на страницу
 $result         = $db -> query( $query );
 $all_lines      = $db -> affectedRows( $result );
 
