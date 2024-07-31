@@ -266,6 +266,7 @@ if ($action == 'edit.item') {
 
 		$content = '
 		<div class="pt10" id="checkcontainer">
+		    <div id="selected-local-files-crm"></div>
 		
 			<div class="flex-container box--child">
 			
@@ -405,7 +406,7 @@ if ($action == 'edit.item') {
 
 			},
 			success: function (data) {
-				
+
 				const msg = Swal.mixin({
 							toast: true,
 							position: 'top-end',
@@ -543,6 +544,7 @@ if ($action == 'edit.item.dialog') {
         $hideLocal = 'hidden';
 		$content = '
 		<div class="pt10" id="checkcontainer">
+        <div id="selected-local-files-crm"></div>
 		
 			<div class="flex-container box--child">
 			
@@ -732,14 +734,27 @@ if ($action == 'edit.item.dialog') {
 
                var currentValue = $('#localFiles').val();
                var selectedValue = $(this).data('id');
+               var selectedName = $(this).data('name');
 
                if (parseInt(currentValue) === parseInt(selectedValue)) {
-                   console.log('currentValue === selectedValue');
+
                    $(this).removeClass('localfile_name__selected');
                    $('#localFiles').val('');
                } else {
+                   let html = '<span id="filelist" class="flex-container">';
+                   html += '<div class="viewdiv flex-string" id="newFile">';
+                   html += '<i class="icon-eye broun"></i>';
+                   html += selectedName;
+                   html += '</div>';
+                   html += '</span>';
+
+                   $("#selected-local-files-crm").html(html);
+
+
                    $('#localFiles').val(selectedValue);
                }
+
+
             });
         });
 
@@ -752,8 +767,6 @@ if ($action == 'edit.item.dialog') {
         });*/
 
         function changesort(field,clickedId = null) {
-            //console.log(field);
-            console.log('qwer');
             var element = $('#x-' + field);
 
 
@@ -768,15 +781,7 @@ if ($action == 'edit.item.dialog') {
                     var sort = 'desc';
                 }
 
-                //console.log(sort);
-
-                //console.log('sort='+field+'-'+sort);
-
-
                 fetchCategoryData(clickedId,1,'sort='+field+'-'+sort);
-
-
-
             }
         }
 
@@ -785,7 +790,7 @@ if ($action == 'edit.item.dialog') {
         }
 
         function toggleArrow(element) {
-            console.log(element);
+
             if (element.hasClass('icon-angle-down')) {
                 element.removeClass('icon-angle-down').addClass('icon-angle-up');
             } else if (element.hasClass('icon-angle-up')) {
@@ -845,7 +850,7 @@ if ($action == 'edit.item.dialog') {
                         for (var i = 0; i < data.list.length; i++) {
                             const description = data.list[i].ftag === null ? "Нет описания" : data.list[i].ftag;
 
-                            html += '<tr class="localfile_name truncate-text" data-id="' + data.list[i].id + '" id="selectLocalFile">';
+                            html += '<tr class="localfile_name truncate-text" data-id="' + data.list[i].id + '" data-name="'+data.list[i].title+'" id="selectLocalFile">';
                             html += '<td>' + data.list[i].datum + '</td>';
                             html += '<td>' + truncateText(data.list[i].title, 50) + '</td>';
                             html += '<td class="localfile_description truncate-text">' + truncateText(description, 100) + '</td>';
@@ -979,9 +984,6 @@ if ($action == 'edit.item.dialog') {
 			fetch("/modules/corpuniver/core.corpuniver.php?action=parceURL&url=" + url)
 				.then(response => response.json())
 					.then(data => {
-
-						//console.log(data);
-
 						if(data.error)
 							Swal.fire({
 								title: 'Ошибка',
@@ -1123,7 +1125,7 @@ if ($action == "edit.task") {
 			<div class="greenbg-sub p10 hidden" id="test"></div>
 
 		</div>
-	
+
 		<div class="footer pl10" style="height:60px">
 
 			<a href="javascript:void(0)" onclick="$('#Form').trigger('submit')" class="button">Сохранить задание</a>
@@ -1138,7 +1140,7 @@ if ($action == "edit.task") {
 		var id = $('#id').val();
 		var cat = $('#cat').val();
 		var idtask = parseInt(<?=$idtask?>);
-		
+
 		$(function(){
 
 			if (cat === 'test')
@@ -1376,8 +1378,6 @@ if ($action == 'list.questions') {
 				$('ul.Questions').find('li').each(function () {
 
 					var id = $(this).data('id');
-
-					//console.log(id);
 
 					$(this).data('num', num);
 
