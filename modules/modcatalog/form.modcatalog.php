@@ -1733,7 +1733,7 @@ if ($action == "view") {
                 }
 
                 html += '<tr style="text-align: left" class="localfile_name"  data-name="' + data[i].file_name + '" data-id="' + data[i].id + '" data-descr="' + snipperDescr + '" id="selectLocalFile">';
-                html += '<td><span style="visibility: visible" class="actions"><a target="_blank" href="/content/helpers/get.file.php?fid='+data[i].file_id+'"  class="gray green mpr0 cu--preview" data-id="' + data[i].id + '" data-type="task" title="Просмотр"><i class="icon-eye green"></i></a></span></td>'
+                html += '<td><span style="visibility: visible" class="actions"><a target="_blank" href="/content/helpers/get.file.php?fid='+data[i].file_id+'"  class="gray green cu--preview" data-id="' + data[i].id + '" data-type="task" title="Просмотр"><i class="icon-eye green"></i></a></span></td>'
                 html += '<td>' + data[i].datum + '</td>';
                 html += '<td>' + data[i].file_name + '</td>';
                 html += '<td class="truncate-text">' + description + '</td>';
